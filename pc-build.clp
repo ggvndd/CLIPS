@@ -1,15 +1,15 @@
-(defrule jenisIkan
+(defrule budgetPC
     =>
-    (printout t crlf "Jenis ikan yang dibudidaya? [M: Ikan Mas, N: Ikan Nila, G: Ikan Gurame]: ")
-    (assert (ikan (read)))
+    (printout t crlf "What budget do you have? [A: Entry Level, B: Mid Range, C: Enthusiast]: ")
+    (assert (budget (read)))
 )
 
-(defrule ikanMas
+(defrule EntryLevel
     (ikan M) =>
-    (printout t "Bagaimana kondisi tubuh ikan? [1: Bercak putih, 2: Bercak merah]: ")
-    (assert (kulit (read)))
-    (printout t "Bagaimana kondisi mata ikan? [1: normal, 2: berkabut]: ")
-    (assert (mata (read)))
+    (printout t "What Processor do you prefer to have? [1: Intel, 2: AMD]: ")
+    (assert (processor (read)))
+    (printout t "What VGA do you prefer? [1: AMD Radeon, 2: NVIDIA Geforce]: ")
+    (assert (graphiccard (read)))
     (printout t "Bagaimana aktivitas atau gerakan ikan? [1: normal, 2: malas/bergerak lambat]: ")
     (assert (gerakan (read)))
     (printout t crlf "=== KESIMPULAN KONDISI IKAN ===" crlf)
