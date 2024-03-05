@@ -236,7 +236,7 @@
     ) =>
 
     (assert (built build22))
-    (printout t "We recommend Intel i5 14600k with RX 7900 XTX, with 16GB or more of 5200 MHz DDR5 RAM" crlf)
+    (printout t "We recommend Ryzen 7 7800X3D with RX 7900 XTX, with 16GB or more of 5200 MHz DDR5 RAM" crlf)
 )
 
 (defrule build23
@@ -245,7 +245,7 @@
     ) =>
 
     (assert (built build23))
-    (printout t "We recommend Intel i5 14600k with RTX 4080, with 16GB or more of 5200 MHz DDR5 RAM" crlf)
+    (printout t "We recommend Ryzen 7 7800X3D with RTX 4080, with 16GB or more of 5200 MHz DDR5 RAM" crlf)
 )
 
 (defrule build24
@@ -254,5 +254,5 @@
     ) =>
 
     (assert (built build24))
-    (printout t "We recommend Intel i5 14600k with RTX 4080, with 8GB of 5200 MHz DDR5 RAM" crlf)
+    (printout t "We recommend Ryzen 7 7800X3D with RTX 4080, with 8GB of 5200 MHz DDR5 RAM" crlf)
 )
