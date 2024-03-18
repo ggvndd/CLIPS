@@ -38,7 +38,7 @@
 
 (defrule ProcessInput
     =>
-    (printout t "Enter symptoms and their certainty factors (e.g., headache 0.7): " crlf)
+    (printout t "Enter symptoms, such as headache, fever, and cough, and their certainty factors (e.g., headache 0.7): " crlf)
     (bind ?input (read))
     (bind ?tokens (str-explode ?input))
     (if (>= (length$ ?tokens) 2)
@@ -53,6 +53,7 @@
 (defrule DisplayResults
     (exists (Symptom))
     =>
+    (printout t "This system will diagnose what sickness you have by giving it your sickness symptoms. " crlf)
     (printout t "Diagnosis results:" crlf)
     (printout t "-----------------" crlf)
     (printout t "Symptom Name  |  Certainty Factor" crlf)
