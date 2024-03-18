@@ -38,33 +38,31 @@
 
 (defrule ProcessInput
     =>
-    (printout t "Enter symptoms, such as headache, fever, and cough, and their certainty factors (e.g., headache 0.7): " crlf)
+    (printout t "Enter symptoms and their certainty factors (e.g., headache 0.7): " crlf)
     (bind ?input (read))
-    (bind ?tokens (str-explode ?input))
+    (bind ?tokens (explode$ ?input " "))
     (if (>= (length$ ?tokens) 2)
         then
         (bind ?symptom (nth$ 1 ?tokens))
         (bind ?cf (float (nth$ 2 ?tokens)))
         (assert (Symptom (name ?symptom) (cf ?cf)))
     )
-    (assert (done))
 )
 
 (defrule DisplayResults
     (exists (Symptom))
     =>
-    (printout t "This system will diagnose what sickness you have by giving it your sickness symptoms. " crlf)
     (printout t "Diagnosis results:" crlf)
     (printout t "-----------------" crlf)
     (printout t "Symptom Name  |  Certainty Factor" crlf)
     (printout t "-----------------" crlf)
     (do-for-all-facts ((?s Symptom)) TRUE
-        (printout t (pad-right (send ?s get name) 14) " | " (pad-left (float (send ?s get cf)) 15) crlf))
+        (printout t (str-pad (send ?s get name) 14) " | " (str-pad (float (send ?s get cf)) 15) crlf))
 )
 
 (defrule Cleanup
-    (done)
+    (not (exists (Symptom)))
     =>
-    (retract (ProcessInput))
-    (retract (done))
+    (printout t "No symptoms entered. Exiting." crlf)
+    (exit)
 )
