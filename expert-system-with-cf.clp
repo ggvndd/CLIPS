@@ -39,25 +39,33 @@
 (defrule ProcessInput
     =>
     (printout t "Enter symptoms and their certainty factors (e.g., headache 0.7): " crlf)
-    (bind ?input (read))
-    (bind ?tokens (explode$ ?input " "))
-    (if (>= (length$ ?tokens) 2)
+    (bind ?input (readline))
+    (if (str-compare ?input "")
         then
-        (bind ?symptom (nth$ 1 ?tokens))
-        (bind ?cf (float (nth$ 2 ?tokens)))
-        (assert (Symptom (name ?symptom) (cf ?cf)))
+        (bind ?pos (str-index ?input " "))
+        (if (>= ?pos 0)
+            then
+            (bind ?symptom (sub-string 1 ?pos ?input))
+            (bind ?cf-str (sub-string (+ ?pos 1) (str-length ?input) ?input))
+            (if (and (str-compare ?symptom "") (str-compare ?cf-str ""))
+                then
+                (bind ?cf (float ?cf-str))
+                (assert (Symptom (name ?symptom) (cf ?cf)))
+            )
+        )
     )
 )
+
 
 (defrule DisplayResults
     (exists (Symptom))
     =>
     (printout t "Diagnosis results:" crlf)
     (printout t "-----------------" crlf)
-    (printout t "Symptom Name  |  Certainty Factor" crlf)
+    (printout t "| Symptom Name  | Certainty Factor |" crlf)
     (printout t "-----------------" crlf)
     (do-for-all-facts ((?s Symptom)) TRUE
-        (printout t (str-pad (send ?s get name) 14) " | " (str-pad (float (send ?s get cf)) 15) crlf))
+        (printout t "| " (send ?s get name) " | " (float (send ?s get cf)) " |" crlf))
 )
 
 (defrule Cleanup
